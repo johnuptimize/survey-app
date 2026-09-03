@@ -1,0 +1,642 @@
+{
+  "AAAAA": {
+    "title": "Outcome AAAAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AAAAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AAAAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AAAAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "AAAAB": {
+    "title": "Outcome AAAAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AAAAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AAAAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AAAAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "AAABA": {
+    "title": "Outcome AAABA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AAABA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AAABA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AAABA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "AAABB": {
+    "title": "Outcome AAABB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AAABB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AAABB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AAABB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "AABAA": {
+    "title": "Outcome AABAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AABAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AABAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AABAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "AABAB": {
+    "title": "Outcome AABAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AABAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AABAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AABAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "AABBA": {
+    "title": "Outcome AABBA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AABBA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AABBA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AABBA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "AABBB": {
+    "title": "Outcome AABBB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome AABBB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome AABBB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome AABBB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABAAA": {
+    "title": "Outcome ABAAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABAAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABAAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABAAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABAAB": {
+    "title": "Outcome ABAAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABAAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABAAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABAAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABABA": {
+    "title": "Outcome ABABA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABABA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABABA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABABA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABABB": {
+    "title": "Outcome ABABB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABABB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABABB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABABB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABBAA": {
+    "title": "Outcome ABBAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABBAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABBAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABBAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABBAB": {
+    "title": "Outcome ABBAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABBAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABBAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABBAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABBBA": {
+    "title": "Outcome ABBBA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABBBA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABBBA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABBBA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "ABBBB": {
+    "title": "Outcome ABBBB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome ABBBB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome ABBBB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome ABBBB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BAAAA": {
+    "title": "Outcome BAAAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BAAAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BAAAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BAAAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BAAAB": {
+    "title": "Outcome BAAAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BAAAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BAAAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BAAAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BAABA": {
+    "title": "Outcome BAABA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BAABA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BAABA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BAABA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BAABB": {
+    "title": "Outcome BAABB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BAABB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BAABB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BAABB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BABAA": {
+    "title": "Outcome BABAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BABAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BABAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BABAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BABAB": {
+    "title": "Outcome BABAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BABAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BABAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BABAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BABBA": {
+    "title": "Outcome BABBA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BABBA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BABBA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BABBA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BABBB": {
+    "title": "Outcome BABBB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BABBB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BABBB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BABBB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBAAA": {
+    "title": "Outcome BBAAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBAAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBAAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBAAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBAAB": {
+    "title": "Outcome BBAAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBAAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBAAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBAAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBABA": {
+    "title": "Outcome BBABA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBABA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBABA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBABA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBABB": {
+    "title": "Outcome BBABB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBABB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBABB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBABB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBBAA": {
+    "title": "Outcome BBBAA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBBAA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBBAA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBBAA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBBAB": {
+    "title": "Outcome BBBAB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBBAB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBBAB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBBAB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBBBA": {
+    "title": "Outcome BBBBA — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBBBA · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBBBA · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBBBA · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  },
+  "BBBBB": {
+    "title": "Outcome BBBBB — placeholder title",
+    "prompts": [
+      {
+        "text": "Outcome BBBBB · follow-up prompt 1 (placeholder)",
+        "optionA": "Prompt 1 option A",
+        "optionB": "Prompt 1 option B"
+      },
+      {
+        "text": "Outcome BBBBB · follow-up prompt 2 (placeholder)",
+        "optionA": "Prompt 2 option A",
+        "optionB": "Prompt 2 option B"
+      },
+      {
+        "text": "Outcome BBBBB · follow-up prompt 3 (placeholder)",
+        "optionA": "Prompt 3 option A",
+        "optionB": "Prompt 3 option B"
+      }
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import type { Outcome } from "@/lib/outcomes";
+import type { Choice, Pattern } from "@/lib/patterns";
+import type { LogPayload } from "@/lib/types";
+
+interface Props {
+  pattern: Pattern;
+  outcome: Outcome;
+}
+
+type SubmitState = "idle" | "submitting" | "done" | "error";
+
+export default function OutcomeClient({ pattern, outcome }: Props) {
+  const [followups, setFollowups] = useState<(Choice | null)[]>([null, null, null]);
+  const [state, setState] = useState<SubmitState>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const allAnswered = followups.every((f) => f !== null);
+
+  function pick(promptIndex: number, choice: Choice) {
+    if (state === "submitting" || state === "done") return;
+    setFollowups((prev) => {
+      const next = [...prev];
+      next[promptIndex] = choice;
+      return next;
+    });
+  }
+
+  async function submit() {
+    if (!allAnswered) return;
+    setState("submitting");
+    setErrorMsg("");
+
+    const payload: LogPayload = {
+      answers: pattern.split("") as Choice[],
+      pattern,
+      followups: followups as Choice[],
+      submittedAt: new Date().toISOString(),
+    };
+
+    try {
+      const res = await fetch("/api/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || `Request failed (${res.status})`);
+      }
+      setState("done");
+    } catch (err) {
+      setState("error");
+      setErrorMsg(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    }
+  }
+
+  if (state === "done") {
+    return (
+      <div className="card center">
+        <h1>Thanks!</h1>
+        <p className="muted">Your responses have been recorded.</p>
+        <p>
+          <Link className="link" href="/">
+            Start over
+          </Link>
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="card">
+      <div className="progress">
+        Your pattern: <span className="pattern-chip">{pattern}</span>
+      </div>
+      <h1>{outcome.title}</h1>
+      <p className="muted">Answer these 3 follow-up prompts to finish.</p>
+
+      {outcome.prompts.map((prompt, i) => (
+        <div className="prompt-block" key={i}>
+          <h3>{prompt.text}</h3>
+          <div className="options">
+            <button
+              type="button"
+              className={`option${followups[i] === "A" ? " selected" : ""}`}
+              onClick={() => pick(i, "A")}
+              disabled={state === "submitting"}
+            >
+              <span className="tag">A</span>
+              {prompt.optionA}
+            </button>
+            <button
+              type="button"
+              className={`option${followups[i] === "B" ? " selected" : ""}`}
+              onClick={() => pick(i, "B")}
+              disabled={state === "submitting"}
+            >
+              <span className="tag">B</span>
+              {prompt.optionB}
+            </button>
+          </div>
+        </div>
+      ))}
+
+      <div className="actions">
+        <Link className="link" href="/">
+          ← Restart survey
+        </Link>
+        <button
+          type="button"
+          className="primary"
+          onClick={submit}
+          disabled={!allAnswered || state === "submitting"}
+        >
+          {state === "submitting" ? "Submitting…" : "Submit"}
+        </button>
+      </div>
+
+      {state === "error" && (
+        <p className="error-text">{errorMsg}</p>
+      )}
+    </div>
+  );
+}

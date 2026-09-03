@@ -1,0 +1,38 @@
+{
+  "intro": {
+    "title": "Quick 5-question survey",
+    "description": "Answer 5 short A/B questions. Your answers lead to a tailored set of follow-up prompts at the end."
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Placeholder question 1 — which describes you better?",
+      "optionA": "Option A for question 1",
+      "optionB": "Option B for question 1"
+    },
+    {
+      "id": "q2",
+      "text": "Placeholder question 2 — which describes you better?",
+      "optionA": "Option A for question 2",
+      "optionB": "Option B for question 2"
+    },
+    {
+      "id": "q3",
+      "text": "Placeholder question 3 — which describes you better?",
+      "optionA": "Option A for question 3",
+      "optionB": "Option B for question 3"
+    },
+    {
+      "id": "q4",
+      "text": "Placeholder question 4 — which describes you better?",
+      "optionA": "Option A for question 4",
+      "optionB": "Option B for question 4"
+    },
+    {
+      "id": "q5",
+      "text": "Placeholder question 5 — which describes you better?",
+      "optionA": "Option A for question 5",
+      "optionB": "Option B for question 5"
+    }
+  ]
+}

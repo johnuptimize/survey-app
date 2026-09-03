@@ -1,0 +1,26 @@
+{
+  "name": "branching-survey-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/check-outcomes.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/check-outcomes.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "check:outcomes": "node scripts/check-outcomes.mjs",
+    "generate:outcomes": "node scripts/generate-outcomes.mjs"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.7.0"
+  }
+}
