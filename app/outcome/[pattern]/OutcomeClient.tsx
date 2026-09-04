@@ -76,9 +76,6 @@ export default function OutcomeClient({ pattern, outcome }: Props) {
 
   return (
     <div className="card">
-      <div className="progress">
-        Your pattern: <span className="pattern-chip">{pattern}</span>
-      </div>
       <h1>{outcome.title}</h1>
       <p className="muted">Answer these 3 follow-up prompts to finish.</p>
 
