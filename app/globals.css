@@ -55,17 +55,20 @@ body {
 h1 {
   font-size: 1.5rem;
   margin: 0 0 8px;
+  white-space: pre-line;
 }
 
 h2 {
   font-size: 1.15rem;
   margin: 0 0 16px;
   line-height: 1.4;
+  white-space: pre-line;
 }
 
 p.muted {
   color: var(--muted);
   margin: 0 0 20px;
+  white-space: pre-line;
 }
 
 .progress {
@@ -135,6 +138,7 @@ button.option .option-text {
   flex: 1 1 auto;
   line-height: 1.5;
   padding-top: 3px;
+  white-space: pre-line;
 }
 
 .actions {
@@ -190,6 +194,7 @@ button.link:disabled {
   font-size: 1rem;
   font-weight: 600;
   margin: 0 0 14px;
+  white-space: pre-line;
 }
 
 .pattern-chip {
