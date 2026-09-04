@@ -67,7 +67,7 @@ export default function SurveyClient({ intro, questions }: Props) {
           disabled={navigating}
         >
           <span className="tag">A</span>
-          {current.optionA}
+          <span className="option-text">{current.optionA}</span>
         </button>
         <button
           type="button"
@@ -76,7 +76,7 @@ export default function SurveyClient({ intro, questions }: Props) {
           disabled={navigating}
         >
           <span className="tag">B</span>
-          {current.optionB}
+          <span className="option-text">{current.optionB}</span>
         </button>
       </div>
 

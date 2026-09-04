@@ -83,6 +83,9 @@ p.muted {
 
 button.option {
   appearance: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
   text-align: left;
   width: 100%;
   padding: 16px 18px;
@@ -109,11 +112,29 @@ button.option.selected {
 }
 
 button.option .tag {
-  display: inline-block;
-  min-width: 22px;
-  font-weight: 600;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 14%, var(--card));
   color: var(--accent);
-  margin-right: 10px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+button.option.selected .tag {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+button.option .option-text {
+  flex: 1 1 auto;
+  line-height: 1.5;
+  padding-top: 3px;
 }
 
 .actions {

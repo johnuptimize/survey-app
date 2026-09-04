@@ -90,7 +90,7 @@ export default function OutcomeClient({ pattern, outcome }: Props) {
               disabled={state === "submitting"}
             >
               <span className="tag">A</span>
-              {prompt.optionA}
+              <span className="option-text">{prompt.optionA}</span>
             </button>
             <button
               type="button"
@@ -99,7 +99,7 @@ export default function OutcomeClient({ pattern, outcome }: Props) {
               disabled={state === "submitting"}
             >
               <span className="tag">B</span>
-              {prompt.optionB}
+              <span className="option-text">{prompt.optionB}</span>
             </button>
           </div>
         </div>
