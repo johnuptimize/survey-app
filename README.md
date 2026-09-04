@@ -41,6 +41,38 @@ site**. The site rebuilds and goes live in ~1–2 minutes.
   an empty cell), the build **fails** and the currently-live site stays up.
   Vercel's deploy log shows exactly which row is wrong.
 
+### What you can safely add to the spreadsheet
+
+The build only ever reads three tabs by name (`Intro`, `Questions`, `Outcomes`)
+and a fixed block of columns in each.
+
+**Always safe:**
+
+- **New tabs with any other name** (`Scratch`, `Analysis`, `Notes`, a VLOOKUP
+  staging tab, charts, pivot tables). Anything that isn't `Intro` / `Questions` /
+  `Outcomes` is ignored — the `Sheet1` responses tab already works this way.
+- **Extra columns to the right of the data:** `Intro` from column **C** on,
+  `Questions` from column **E** on, `Outcomes` from column **L** on. Good for
+  editor notes, word counts, helper formulas — all ignored by the build.
+- Formatting, filters, conditional formatting, frozen rows, cell comments, and
+  trailing blank rows.
+
+**Breaks the build (but not the live site):**
+
+- Inserting or reordering columns *inside* the read block (e.g. a new column
+  between `optionA` and `optionB`) — every following value shifts into the wrong
+  field.
+- `Questions`: a row with text in **column A** that isn't a real question — the
+  count stops being 5. (A row with column A blank is fine.)
+- `Outcomes`: renaming, reordering, or deleting **column A** values, or adding one
+  that isn't a valid pattern.
+- Deleting row 1 (the header) of any of the three tabs.
+- Renaming the `Intro`, `Questions`, `Outcomes`, or `Sheet1` tabs without also
+  updating the matching name at the top of `Code.gs` and redeploying.
+
+If you do hit one of these, **Publish** fails the build, the current live survey
+stays untouched, and Vercel's deploy log names the offending row or key.
+
 ### Loading the supplied 32-row content
 
 Paste the handoff data into the Outcomes tab, matching it to the existing
