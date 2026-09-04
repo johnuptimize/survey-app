@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/check-outcomes.mjs",
+    "predev": "node scripts/pull-content.mjs && node scripts/check-content.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/check-outcomes.mjs",
+    "prebuild": "node scripts/pull-content.mjs && node scripts/check-content.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check:outcomes": "node scripts/check-outcomes.mjs",
+    "pull:content": "node scripts/pull-content.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "check:outcomes": "node scripts/check-content.mjs",
     "generate:outcomes": "node scripts/generate-outcomes.mjs"
   },
   "dependencies": {
