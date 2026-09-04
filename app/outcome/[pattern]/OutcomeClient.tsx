@@ -77,7 +77,13 @@ export default function OutcomeClient({ pattern, outcome }: Props) {
   return (
     <div className="card">
       <h1>{outcome.title}</h1>
-      <p className="muted">Answer these 3 follow-up prompts to finish.</p>
+      <p className="muted">
+        Below are 3 real prompts, each answered two different ways. For each
+        one, read both responses and pick the one that feels more like how
+        you&apos;d actually want AI to talk to you - not which one is
+        &quot;better written,&quot; but which one fits you. There&apos;s no
+        right answer. Go with your gut.
+      </p>
 
       {outcome.prompts.map((prompt, i) => (
         <div className="prompt-block" key={i}>
