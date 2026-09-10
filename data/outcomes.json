@@ -12,7 +12,7 @@
         "text": "Outcome AAAAA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome AAAAA · follow-up prompt 3 (placeholder)",
@@ -29,13 +29,13 @@
         "text": "Outcome AAAAB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome AAAAB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome AAAAB · follow-up prompt 3 (placeholder)",
@@ -75,7 +75,7 @@
         "text": "Outcome AAABB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome AAABB · follow-up prompt 2 (placeholder)",
@@ -87,7 +87,7 @@
         "text": "Outcome AAABB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -121,19 +121,19 @@
         "text": "Outcome AABAB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome AABAB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome AABAB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "A"
+        "tuned": "B"
       }
     ]
   },
@@ -150,7 +150,7 @@
         "text": "Outcome AABBA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome AABBA · follow-up prompt 3 (placeholder)",
@@ -167,19 +167,19 @@
         "text": "Outcome AABBB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome AABBB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome AABBB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "A"
+        "tuned": "B"
       }
     ]
   },
@@ -190,13 +190,13 @@
         "text": "Outcome ABAAA · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome ABAAA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome ABAAA · follow-up prompt 3 (placeholder)",
@@ -213,13 +213,13 @@
         "text": "Outcome ABAAB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome ABAAB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome ABAAB · follow-up prompt 3 (placeholder)",
@@ -265,7 +265,7 @@
         "text": "Outcome ABABB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome ABABB · follow-up prompt 3 (placeholder)",
@@ -282,7 +282,7 @@
         "text": "Outcome ABBAA · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome ABBAA · follow-up prompt 2 (placeholder)",
@@ -294,7 +294,7 @@
         "text": "Outcome ABBAA · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "A"
+        "tuned": "B"
       }
     ]
   },
@@ -305,13 +305,13 @@
         "text": "Outcome ABBAB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome ABBAB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome ABBAB · follow-up prompt 3 (placeholder)",
@@ -334,7 +334,7 @@
         "text": "Outcome ABBBA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome ABBBA · follow-up prompt 3 (placeholder)",
@@ -351,19 +351,19 @@
         "text": "Outcome ABBBB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome ABBBB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome ABBBB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "A"
+        "tuned": "B"
       }
     ]
   },
@@ -374,7 +374,7 @@
         "text": "Outcome BAAAA · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BAAAA · follow-up prompt 2 (placeholder)",
@@ -386,7 +386,7 @@
         "text": "Outcome BAAAA · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "A"
+        "tuned": "B"
       }
     ]
   },
@@ -397,19 +397,19 @@
         "text": "Outcome BAAAB · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BAAAB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BAAAB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -426,7 +426,7 @@
         "text": "Outcome BAABA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BAABA · follow-up prompt 3 (placeholder)",
@@ -455,7 +455,7 @@
         "text": "Outcome BAABB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "A"
+        "tuned": "B"
       }
     ]
   },
@@ -466,13 +466,13 @@
         "text": "Outcome BABAA · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BABAA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BABAA · follow-up prompt 3 (placeholder)",
@@ -495,13 +495,13 @@
         "text": "Outcome BABAB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BABAB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -524,7 +524,7 @@
         "text": "Outcome BABBA · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -541,13 +541,13 @@
         "text": "Outcome BABBB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BABBB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -558,13 +558,13 @@
         "text": "Outcome BBAAA · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BBAAA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BBAAA · follow-up prompt 3 (placeholder)",
@@ -593,7 +593,7 @@
         "text": "Outcome BBAAB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "A"
+        "tuned": "B"
       }
     ]
   },
@@ -610,7 +610,7 @@
         "text": "Outcome BBABA · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BBABA · follow-up prompt 3 (placeholder)",
@@ -633,13 +633,13 @@
         "text": "Outcome BBABB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BBABB · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -650,7 +650,7 @@
         "text": "Outcome BBBAA · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BBBAA · follow-up prompt 2 (placeholder)",
@@ -662,7 +662,7 @@
         "text": "Outcome BBBAA · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -679,7 +679,7 @@
         "text": "Outcome BBBAB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "A"
+        "tuned": "B"
       },
       {
         "text": "Outcome BBBAB · follow-up prompt 3 (placeholder)",
@@ -696,7 +696,7 @@
         "text": "Outcome BBBBA · follow-up prompt 1 (placeholder)",
         "optionA": "Prompt 1 option A",
         "optionB": "Prompt 1 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BBBBA · follow-up prompt 2 (placeholder)",
@@ -708,7 +708,7 @@
         "text": "Outcome BBBBA · follow-up prompt 3 (placeholder)",
         "optionA": "Prompt 3 option A",
         "optionB": "Prompt 3 option B",
-        "tuned": "B"
+        "tuned": "A"
       }
     ]
   },
@@ -725,7 +725,7 @@
         "text": "Outcome BBBBB · follow-up prompt 2 (placeholder)",
         "optionA": "Prompt 2 option A",
         "optionB": "Prompt 2 option B",
-        "tuned": "B"
+        "tuned": "A"
       },
       {
         "text": "Outcome BBBBB · follow-up prompt 3 (placeholder)",
