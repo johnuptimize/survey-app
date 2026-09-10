@@ -2,8 +2,10 @@
 
 A 5-question A/B survey. The sequence of answers forms a 5-character pattern
 (e.g. `AABAB`); each of the 32 possible patterns maps to a distinct outcome page
-with 3 follow-up A/B prompts. All responses are logged to a Google Sheet, and the
-survey content (questions + outcomes) is edited in that same Google Sheet.
+with 3 follow-up A/B prompts. One option per prompt is the "tuned" response, the
+other is "regular". After submitting, respondents see how often they picked the
+tuned option and a results page that branches on that. All responses are logged
+to a Google Sheet, and all content is edited in that same Google Sheet.
 
 ## How it works
 
@@ -12,7 +14,11 @@ survey content (questions + outcomes) is edited in that same Google Sheet.
    -> builds pattern from the 5 answers           (lib/patterns.ts)
 /outcome/<PATTERN>    title + 3 follow-up prompts  (app/outcome/[pattern]/)
    -> looks up PATTERN in the mapping table        (lib/outcomes.ts + data/outcomes.json)
+   -> on submit: tally tuned vs regular picks      (lib/tally.ts)
+   -> 2-3 tuned -> "tuned" results page,           (lib/results.ts + data/results.json)
+      0-1 tuned -> "regular" results page
 POST /api/log         validates + appends one row  (app/api/log/route.ts)
+   -> derives tuned/regular result server-side, then
    -> Google Apps Script web app -> Sheet          (google-apps-script/Code.gs)
 
 build time:  scripts/pull-content.mjs  pulls content from the Sheet -> data/*.json
@@ -24,36 +30,43 @@ An unknown pattern (e.g. `/outcome/ZZZZZ`) returns 404.
 
 ## Editing content in the Google Sheet
 
-Once the Sheet is set up (see below), all content lives in three tabs:
+Once the Sheet is set up (see below), all content lives in four tabs:
 
 | Tab | Rows | Columns |
 | --- | --- | --- |
 | **Intro** | 1 data row | `title`, `description` |
 | **Questions** | 5 rows | `id`, `text`, `optionA`, `optionB` |
-| **Outcomes** | 32 rows (one per pattern, pre-filled) | `pattern`, `title`, `prompt1_text`, `prompt1_optionA`, `prompt1_optionB`, `prompt2_*`, `prompt3_*` |
+| **Outcomes** | 32 rows (one per pattern, pre-filled) | `pattern`, `title`, `prompt1_text`, `prompt1_optionA`, `prompt1_optionB`, `prompt2_*`, `prompt3_*`, then `prompt1_tuned`, `prompt2_tuned`, `prompt3_tuned` (each `A` or `B` — which option is the tuned response) |
+| **Results** | 2 rows (`tuned`, `regular`) | `key`, `heading`, `body`, `ctaLabel`, `ctaUrl` |
 
 To edit: change cells in the Sheet, then **Survey menu → Publish changes to
 site**. The site rebuilds and goes live in ~1–2 minutes.
 
 - The 32 `pattern` values in the Outcomes tab are generated for you by
   `firstTimeSetup` — don't retype or reorder them. Edit only the content columns.
+- `promptN_tuned` = `A` or `B`, the option that is the tuned response for that
+  prompt. Blank or anything else fails the build.
+- **Results** tab: `body` supports line breaks (Alt+Enter in the cell). The CTA
+  button shows only when **both** `ctaLabel` and `ctaUrl` are filled — so you
+  decide per variant whether there's a button. `ctaUrl` must start with `http`.
 - If the pull returns bad content (missing a pattern, wrong number of questions,
-  an empty cell), the build **fails** and the currently-live site stays up.
-  Vercel's deploy log shows exactly which row is wrong.
+  a bad `tuned` value, an empty cell), the build **fails** and the currently-live
+  site stays up. Vercel's deploy log shows exactly which row is wrong.
 
 ### What you can safely add to the spreadsheet
 
-The build only ever reads three tabs by name (`Intro`, `Questions`, `Outcomes`)
-and a fixed block of columns in each.
+The build only ever reads four tabs by name (`Intro`, `Questions`, `Outcomes`,
+`Results`) and a fixed block of columns in each.
 
 **Always safe:**
 
 - **New tabs with any other name** (`Scratch`, `Analysis`, `Notes`, a VLOOKUP
-  staging tab, charts, pivot tables). Anything that isn't `Intro` / `Questions` /
-  `Outcomes` is ignored — the `Sheet1` responses tab already works this way.
+  staging tab, charts, pivot tables). Anything that isn't one of the four is
+  ignored — the `Sheet1` responses tab already works this way.
 - **Extra columns to the right of the data:** `Intro` from column **C** on,
-  `Questions` from column **E** on, `Outcomes` from column **L** on. Good for
-  editor notes, word counts, helper formulas — all ignored by the build.
+  `Questions` from column **E** on, `Outcomes` from column **O** on, `Results`
+  from column **F** on. Good for editor notes, word counts, helper formulas —
+  all ignored by the build.
 - Formatting, filters, conditional formatting, frozen rows, cell comments, and
   trailing blank rows.
 
@@ -65,10 +78,12 @@ and a fixed block of columns in each.
 - `Questions`: a row with text in **column A** that isn't a real question — the
   count stops being 5. (A row with column A blank is fine.)
 - `Outcomes`: renaming, reordering, or deleting **column A** values, or adding one
-  that isn't a valid pattern.
-- Deleting row 1 (the header) of any of the three tabs.
-- Renaming the `Intro`, `Questions`, `Outcomes`, or `Sheet1` tabs without also
-  updating the matching name at the top of `Code.gs` and redeploying.
+  that isn't a valid pattern; a blank/invalid `promptN_tuned`.
+- `Results`: removing the `tuned` or `regular` row, an empty `heading`/`body`,
+  or filling only one of `ctaLabel`/`ctaUrl`.
+- Deleting row 1 (the header) of any of the four tabs.
+- Renaming the `Intro`, `Questions`, `Outcomes`, `Results`, or `Sheet1` tabs
+  without also updating the matching name at the top of `Code.gs` and redeploying.
 
 If you do hit one of these, **Publish** fails the build, the current live survey
 stays untouched, and Vercel's deploy log names the offending row or key.
@@ -79,9 +94,9 @@ Paste the handoff data into the Outcomes tab, matching it to the existing
 `pattern` rows (a `VLOOKUP` from a scratch tab keyed on pattern is the safe way).
 Then Publish.
 
-The committed `data/questions.json` / `data/outcomes.json` are a fallback copy
-used only when no Sheet URL is configured (e.g. a fresh local checkout). The
-Sheet is the source of truth once wired up.
+The committed `data/questions.json` / `data/outcomes.json` / `data/results.json`
+are a fallback copy used only when no Sheet URL is configured (e.g. a fresh local
+checkout). The Sheet is the source of truth once wired up.
 
 ### `data/outcomes.json` shape (what the Sheet is converted into)
 
@@ -90,14 +105,39 @@ Sheet is the source of truth once wired up.
   "AAAAA": {
     "title": "…",
     "prompts": [
-      { "text": "…", "optionA": "…", "optionB": "…" },
-      { "text": "…", "optionA": "…", "optionB": "…" },
-      { "text": "…", "optionA": "…", "optionB": "…" }
+      { "text": "…", "optionA": "…", "optionB": "…", "tuned": "A" },
+      { "text": "…", "optionA": "…", "optionB": "…", "tuned": "B" },
+      { "text": "…", "optionA": "…", "optionB": "…", "tuned": "A" }
     ]
   },
   "AAAAB": { "…": "…" }
 }
 ```
+
+### `data/results.json` shape
+
+```json
+{
+  "tuned":   { "heading": "…", "body": "…", "ctaLabel": "Join Frequency", "ctaUrl": "https://…" },
+  "regular": { "heading": "…", "body": "…", "ctaLabel": "", "ctaUrl": "" }
+}
+```
+
+### The results screen
+
+After submit, the app compares each of the 3 follow-up picks to that prompt's
+`tuned` letter. `2` or `3` tuned picks → the `tuned` variant; `0` or `1` → the
+`regular` variant. The screen shows:
+
+> ✓ Your responses have been recorded.
+> **You preferred the tuned response N of 3 times.**
+> *(variant heading)*
+> *(variant body)*
+> *(CTA button, if configured)*
+> Start over
+
+The same tally is recomputed server-side in `/api/log` and written to the
+response row, so you never have to reconstruct it from the raw A/B picks.
 
 ### Changing the number of questions
 
@@ -135,7 +175,7 @@ skeleton locally).
    have a Vercel deploy hook, paste it into `DEPLOY_HOOK_URL`.
 4. In the editor's toolbar, pick **`firstTimeSetup`** in the function dropdown and
    click **Run**. Authorize when prompted. This creates the `Sheet1` (responses),
-   `Intro`, `Questions`, and `Outcomes` tabs with headers and the 32 seed rows.
+   `Intro`, `Questions`, `Outcomes`, and `Results` tabs with headers and seed rows.
 5. **Deploy → New deployment → Web app.** Execute as **Me**, Who has access
    **Anyone**. Copy the **Web app URL** (ends in `/exec`).
 6. Reload the spreadsheet — a **Survey** menu appears.
@@ -144,7 +184,19 @@ That one URL is used for everything. After any later edit to `Code.gs`:
 **Deploy → Manage deployments → ✏️ → Version: New version → Deploy.**
 
 Each response is one row in `Sheet1`: `submittedAt, receivedAt, pattern, q1..q5,
-followup1..followup3`.
+followup1..followup3, pickedType1..3` (`tuned`/`regular`), `tunedCount` (0–3),
+`resultVariant`.
+
+### Upgrading a sheet that predates the tuned columns / Results tab
+
+1. Paste the new `Code.gs`, save, redeploy (new version).
+2. Run **`firstTimeSetup`** → adds the `Results` tab (leaves your other tabs alone).
+3. Run **`setResponseHeaders`** (Survey menu, or the function dropdown) → rewrites
+   row 1 of `Sheet1` with the new columns. Existing rows keep their values.
+4. Add the `prompt1_tuned` / `prompt2_tuned` / `prompt3_tuned` columns to the
+   `Outcomes` tab — paste [`google-apps-script/outcomes-tuned-columns.tsv`](google-apps-script/outcomes-tuned-columns.tsv)
+   into cell **L1** (header + 32 rows, already in pattern order).
+5. Fill in the `Results` tab copy, then **Publish**.
 
 ## Deploy to Vercel
 
@@ -179,13 +231,18 @@ app/
 data/
   questions.json               fallback copy of intro + questions
   outcomes.json                fallback copy of the 32-pattern mapping table
+  results.json                 fallback copy of the tuned / regular results copy
 lib/
   patterns.ts                  pattern generation + validation (single source of truth)
   outcomes.ts                  loads + validates outcomes.json at startup
+  results.ts                   loads + validates results.json at startup
+  tally.ts                     tuned-vs-regular tally (shared: results page + logging)
   types.ts                     shared LogPayload type
 scripts/
   pull-content.mjs             build step: Sheet -> data/*.json (npm run pull:content)
   check-content.mjs            build guard: validate data/*.json (npm run check:content)
   generate-outcomes.mjs        (re)create the 32-key skeleton offline
-google-apps-script/Code.gs     paste into the Sheet's Apps Script (logging + content API)
+google-apps-script/
+  Code.gs                      paste into the Sheet's Apps Script (logging + content API)
+  outcomes-tuned-columns.tsv   paste block for the Outcomes tab's tuned columns
 ```

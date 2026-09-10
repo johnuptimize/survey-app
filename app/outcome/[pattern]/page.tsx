@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { allPatterns } from "@/lib/patterns";
 import { getOutcome } from "@/lib/outcomes";
+import { results } from "@/lib/results";
 import OutcomeClient from "./OutcomeClient";
 
 // Pre-render all 32 outcome pages at build time.
@@ -20,5 +21,7 @@ export default async function OutcomePage({
 
   if (!outcome) notFound();
 
-  return <OutcomeClient pattern={pattern} outcome={outcome} />;
+  return (
+    <OutcomeClient pattern={pattern} outcome={outcome} results={results} />
+  );
 }

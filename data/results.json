@@ -1,0 +1,14 @@
+{
+  "tuned": {
+    "heading": "Placeholder heading — tuned",
+    "body": "Placeholder body for people who preferred the tuned responses. Replace this in the Results tab of the Google Sheet. Line breaks (Alt+Enter in a cell) are preserved.",
+    "ctaLabel": "Join Frequency",
+    "ctaUrl": "https://alpha.tryfrequency.com/signup"
+  },
+  "regular": {
+    "heading": "Placeholder heading — regular",
+    "body": "Placeholder body for people who preferred the regular responses. Replace this in the Results tab of the Google Sheet.",
+    "ctaLabel": "",
+    "ctaUrl": ""
+  }
+}

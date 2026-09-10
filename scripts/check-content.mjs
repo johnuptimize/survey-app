@@ -1,7 +1,8 @@
 /**
  * Build-time / startup validation of the content files:
- *   - data/outcomes.json   — all 32 pattern keys, correct shape
- *   - data/questions.json   — intro + exactly QUESTION_COUNT questions, correct shape
+ *   - data/questions.json  — intro + exactly QUESTION_COUNT questions, correct shape
+ *   - data/outcomes.json   — all 32 pattern keys, correct shape, tuned = A|B
+ *   - data/results.json    — tuned + regular variants, heading/body, CTA pairing
  *
  * Fails the process (non-zero exit) on any problem. Wired into `npm run build`
  * (prebuild) and `npm run dev` (predev), after scripts/pull-content.mjs. Vercel
@@ -17,6 +18,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(__dirname, "..", "data");
 const OUTCOMES_PATH = join(DATA_DIR, "outcomes.json");
 const QUESTIONS_PATH = join(DATA_DIR, "questions.json");
+const RESULTS_PATH = join(DATA_DIR, "results.json");
 
 const QUESTION_COUNT = 5;
 
@@ -144,6 +146,9 @@ function readJson(path, label) {
           errors.push(`${at}: missing/empty "${field}"`);
         }
       }
+      if (p.tuned !== "A" && p.tuned !== "B") {
+        errors.push(`${at}: "tuned" must be "A" or "B" (got ${JSON.stringify(p.tuned)})`);
+      }
     });
   }
 
@@ -151,4 +156,45 @@ function readJson(path, label) {
   console.log(
     `✓ outcomes.json OK — all ${expected.length} patterns present and valid.`
   );
+}
+
+// ---- results.json ------------------------------------------------------
+{
+  const data = readJson(RESULTS_PATH, "results.json");
+  const errors = [];
+
+  if (!data || typeof data !== "object") {
+    errors.push("root is not an object");
+  } else {
+    for (const key of ["tuned", "regular"]) {
+      const v = data[key];
+      if (!v || typeof v !== "object") {
+        errors.push(`missing "${key}" variant`);
+        continue;
+      }
+      for (const f of ["heading", "body"]) {
+        if (typeof v[f] !== "string" || v[f].trim() === "") {
+          errors.push(`${key}.${f} missing/empty`);
+        }
+      }
+      for (const f of ["ctaLabel", "ctaUrl"]) {
+        if (typeof v[f] !== "string") {
+          errors.push(`${key}.${f} must be a string (may be empty)`);
+        }
+      }
+      const hasLabel = typeof v.ctaLabel === "string" && v.ctaLabel.trim() !== "";
+      const hasUrl = typeof v.ctaUrl === "string" && v.ctaUrl.trim() !== "";
+      if (hasLabel !== hasUrl) {
+        errors.push(
+          `${key}: set both ctaLabel and ctaUrl, or neither`
+        );
+      }
+      if (hasUrl && !/^https?:\/\//i.test(v.ctaUrl.trim())) {
+        errors.push(`${key}.ctaUrl must start with http:// or https://`);
+      }
+    }
+  }
+
+  if (errors.length) fail("results.json validation failed", errors);
+  console.log("✓ results.json OK — tuned + regular variants valid.");
 }

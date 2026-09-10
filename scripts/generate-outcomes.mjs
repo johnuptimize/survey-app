@@ -37,6 +37,7 @@ function placeholderOutcome(pattern) {
       text: `Outcome ${pattern} · follow-up prompt ${n} (placeholder)`,
       optionA: `Prompt ${n} option A`,
       optionB: `Prompt ${n} option B`,
+      tuned: "A",
     })),
   };
 }

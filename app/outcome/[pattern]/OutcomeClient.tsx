@@ -3,17 +3,20 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { Outcome } from "@/lib/outcomes";
+import type { ResultsCopy } from "@/lib/results";
 import type { Choice, Pattern } from "@/lib/patterns";
+import { tallyTuned } from "@/lib/tally";
 import type { LogPayload } from "@/lib/types";
 
 interface Props {
   pattern: Pattern;
   outcome: Outcome;
+  results: ResultsCopy;
 }
 
 type SubmitState = "idle" | "submitting" | "done" | "error";
 
-export default function OutcomeClient({ pattern, outcome }: Props) {
+export default function OutcomeClient({ pattern, outcome, results }: Props) {
   const [followups, setFollowups] = useState<(Choice | null)[]>([null, null, null]);
   const [state, setState] = useState<SubmitState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -61,10 +64,31 @@ export default function OutcomeClient({ pattern, outcome }: Props) {
   }
 
   if (state === "done") {
+    const { tunedCount, variant } = tallyTuned(outcome, followups as Choice[]);
+    const copy = results[variant];
+    const total = outcome.prompts.length;
+    const showCta = copy.ctaLabel.trim() !== "" && copy.ctaUrl.trim() !== "";
+
     return (
-      <div className="card center">
-        <h1>Thanks!</h1>
-        <p className="muted">Your responses have been recorded.</p>
+      <div className="card">
+        <p className="done-confirm">✓ Your responses have been recorded.</p>
+        <p className="done-tally">
+          You preferred the tuned response {tunedCount} of {total} times.
+        </p>
+        <h1>{copy.heading}</h1>
+        <p className="muted">{copy.body}</p>
+        {showCta && (
+          <p className="done-cta">
+            <a
+              className="primary"
+              href={copy.ctaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy.ctaLabel} →
+            </a>
+          </p>
+        )}
         <p>
           <Link className="link" href="/">
             Start over

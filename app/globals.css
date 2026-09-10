@@ -149,8 +149,10 @@ button.option .option-text {
   margin-top: 28px;
 }
 
-button.primary {
+button.primary,
+a.primary {
   appearance: none;
+  display: inline-block;
   padding: 12px 22px;
   font-size: 1rem;
   font-weight: 600;
@@ -159,6 +161,7 @@ button.primary {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 button.primary:disabled {
@@ -216,4 +219,20 @@ button.link:disabled {
 
 .center {
   text-align: center;
+}
+
+.done-confirm {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 4px;
+}
+
+.done-tally {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.done-cta {
+  margin: 4px 0 24px;
 }

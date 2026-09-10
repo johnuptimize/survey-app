@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { isValidPattern, QUESTION_COUNT } from "@/lib/patterns";
+import { isValidPattern, QUESTION_COUNT, type Choice } from "@/lib/patterns";
+import { getOutcome } from "@/lib/outcomes";
+import { tallyTuned } from "@/lib/tally";
 import type { LogPayload } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -56,6 +58,13 @@ export async function POST(request: Request) {
   }
   const data = result.data;
 
+  // Derive tuned-vs-regular server-side from the outcome key so the client
+  // can't influence what gets logged.
+  const outcome = getOutcome(data.pattern);
+  const tally = outcome
+    ? tallyTuned(outcome, data.followups as Choice[])
+    : { pickedTypes: ["", "", ""] as string[], tunedCount: "", variant: "" };
+
   // Flat record — one row per response. Column order here is the sheet column order.
   const row = {
     submittedAt: data.submittedAt,
@@ -69,6 +78,11 @@ export async function POST(request: Request) {
     followup1: data.followups[0],
     followup2: data.followups[1],
     followup3: data.followups[2],
+    pickedType1: tally.pickedTypes[0],
+    pickedType2: tally.pickedTypes[1],
+    pickedType3: tally.pickedTypes[2],
+    tunedCount: tally.tunedCount,
+    resultVariant: tally.variant,
   };
 
   const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;

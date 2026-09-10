@@ -1,6 +1,8 @@
 /**
- * Pulls survey content (intro + 5 questions + 32 outcomes) from the Google Sheet
- * and writes data/questions.json and data/outcomes.json.
+ * Pulls survey content from the Google Sheet and writes:
+ *   data/questions.json  (intro + 5 questions)
+ *   data/outcomes.json   (32 outcomes, incl. each prompt's tuned letter)
+ *   data/results.json    (tuned + regular results-screen copy)
  *
  * Source: the same Apps Script web app used for response logging. Its doGet
  * handler returns the content as JSON when called with ?content=all. So the
@@ -9,12 +11,12 @@
  * Behaviour:
  *   - No source URL configured  -> do nothing, keep the committed data/*.json.
  *     (Lets you develop locally, or run without a sheet, using the checked-in copy.)
- *   - Source URL configured, fetch OK -> overwrite the two JSON files.
+ *   - Source URL configured, fetch OK -> overwrite the three JSON files.
  *   - Source URL configured, fetch fails -> exit non-zero (fail the build rather
  *     than silently deploy stale or empty content).
  *
- * The deep validation (all 32 patterns, correct shape, exactly 5 questions) is
- * done afterwards by scripts/check-content.mjs, which prebuild runs next.
+ * The deep validation is done afterwards by scripts/check-content.mjs, which
+ * prebuild runs next.
  *
  * Run manually:  npm run pull:content
  */
@@ -31,7 +33,7 @@ const sourceUrl =
 if (!sourceUrl) {
   console.log(
     "[pull-content] no CONTENT_SOURCE_URL / GOOGLE_SHEET_WEBHOOK_URL set — " +
-      "keeping committed data/questions.json and data/outcomes.json."
+      "keeping committed data/*.json."
   );
   process.exit(0);
 }
@@ -90,6 +92,18 @@ if (!payload.outcomes || typeof payload.outcomes !== "object") {
   console.error("[pull-content] response is missing a valid `outcomes` object.");
   process.exit(1);
 }
+if (
+  !payload.results ||
+  typeof payload.results !== "object" ||
+  !payload.results.tuned ||
+  !payload.results.regular
+) {
+  console.error(
+    "[pull-content] response is missing a valid `results` object " +
+      "(need `tuned` and `regular`). Run firstTimeSetup in Apps Script to create the Results tab."
+  );
+  process.exit(1);
+}
 
 writeFileSync(
   join(DATA_DIR, "questions.json"),
@@ -101,8 +115,13 @@ writeFileSync(
   JSON.stringify(payload.outcomes, null, 2) + "\n",
   "utf8"
 );
+writeFileSync(
+  join(DATA_DIR, "results.json"),
+  JSON.stringify(payload.results, null, 2) + "\n",
+  "utf8"
+);
 
 console.log(
   `[pull-content] updated: ${q.questions.length} questions, ` +
-    `${Object.keys(payload.outcomes).length} outcomes.`
+    `${Object.keys(payload.outcomes).length} outcomes, results copy.`
 );

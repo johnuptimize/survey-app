@@ -8,7 +8,7 @@
  * Importing this module runs a startup check. If any of the 32 patterns is
  * missing or malformed, it throws immediately (module load fails) rather than
  * letting the app serve a half-broken survey. The same rules run at build time
- * via scripts/check-outcomes.mjs.
+ * via scripts/check-content.mjs.
  */
 import rawOutcomes from "@/data/outcomes.json";
 import { allPatterns, isValidPattern, type Pattern } from "@/lib/patterns";
@@ -17,6 +17,8 @@ export interface OutcomePrompt {
   text: string;
   optionA: string;
   optionB: string;
+  /** Which option ("A" or "B") is the tuned response. The other is "regular". */
+  tuned: "A" | "B";
 }
 
 export interface Outcome {
@@ -67,6 +69,9 @@ function validate(data: unknown): asserts data is OutcomeMap {
         if (typeof pr[field] !== "string" || (pr[field] as string).trim() === "") {
           errors.push(`${at}: missing/empty "${field}"`);
         }
+      }
+      if (pr.tuned !== "A" && pr.tuned !== "B") {
+        errors.push(`${at}: "tuned" must be "A" or "B"`);
       }
     });
   }
