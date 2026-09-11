@@ -1,11 +1,24 @@
+/*
+ * Light-mode palette + typography from the Frequency Visual & Video Brand
+ * Guide. Gold is a small-accent colour only (badges, borders, numbers/ticks)
+ * — the guide is explicit that it's "never a large fill" — so primary
+ * buttons use an ink fill (--fill) instead of a solid gold one.
+ *
+ * Dark mode is intentionally left as it was: the guide's dark palette exists
+ * but wasn't requested here, so every new/repurposed token below is mirrored
+ * in the dark media query to its previous effective value.
+ */
 :root {
-  --bg: #f6f7f9;
-  --card: #ffffff;
-  --text: #1c2024;
-  --muted: #6b7280;
-  --border: #e2e5e9;
-  --accent: #2563eb;
-  --accent-contrast: #ffffff;
+  --bg: #e9ece5; /* light background — warm, cool-leaning sage-grey */
+  --card: #dee0d8; /* light card/panel */
+  --text: #191712; /* ink text */
+  --muted: color-mix(in srgb, var(--text) 55%, var(--bg)); /* muted grey/taupe */
+  --border: #c1c3b5; /* light border */
+  --accent: #c8a830; /* gold — the single accent colour, used sparingly */
+  --accent-dim: #9b8328; /* dimmed gold — secondary emphasis */
+  --accent-contrast: var(--text); /* ink reads on a gold accent */
+  --fill: var(--text); /* ink fill for primary buttons (never a large gold fill) */
+  --fill-contrast: var(--bg);
   --radius: 12px;
   --maxw: 640px;
 }
@@ -18,6 +31,10 @@
     --muted: #9aa0a6;
     --border: #2a2e33;
     --accent: #3b82f6;
+    --accent-dim: var(--accent);
+    --accent-contrast: #ffffff;
+    --fill: var(--accent);
+    --fill-contrast: #ffffff;
   }
 }
 
@@ -34,8 +51,8 @@ body {
 body {
   background: var(--bg);
   color: var(--text);
-  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font: 16px/1.55 var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -54,12 +71,14 @@ body {
 
 h1 {
   font-size: 1.5rem;
+  font-weight: 600; /* SemiBold — the guide avoids Bold for large statements */
   margin: 0 0 8px;
   white-space: pre-line;
 }
 
 h2 {
   font-size: 1.15rem;
+  font-weight: 600;
   margin: 0 0 16px;
   line-height: 1.4;
   white-space: pre-line;
@@ -124,7 +143,7 @@ button.option .tag {
   border-radius: 50%;
   background: color-mix(in srgb, var(--accent) 14%, var(--card));
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 600; /* avoid Bold, per the brand guide */
   font-size: 0.8rem;
   transition: background 0.12s ease, color 0.12s ease;
 }
@@ -156,8 +175,8 @@ a.primary {
   padding: 12px 22px;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--accent-contrast);
-  background: var(--accent);
+  color: var(--fill-contrast);
+  background: var(--fill);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -169,7 +188,8 @@ button.primary:disabled {
   cursor: not-allowed;
 }
 
-button.link {
+button.link,
+a.link {
   appearance: none;
   background: none;
   border: none;
@@ -177,6 +197,11 @@ button.link {
   cursor: pointer;
   font-size: 0.9rem;
   padding: 8px;
+  text-decoration: none;
+}
+
+a.link:hover {
+  text-decoration: underline;
 }
 
 button.link:disabled {
@@ -202,10 +227,9 @@ button.link:disabled {
 
 .pattern-chip {
   display: inline-block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   letter-spacing: 0.15em;
   background: color-mix(in srgb, var(--accent) 12%, var(--card));
-  color: var(--accent);
+  color: var(--accent-dim);
   border-radius: 6px;
   padding: 2px 8px;
   font-size: 0.9rem;
@@ -235,4 +259,10 @@ button.link:disabled {
 
 .done-cta {
   margin: 4px 0 24px;
+}
+
+/* Gold, used sparingly for numbers/ticks/markers, per the brand guide. */
+.accent-mark {
+  color: var(--accent);
+  font-weight: 600;
 }

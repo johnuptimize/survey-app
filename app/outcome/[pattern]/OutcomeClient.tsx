@@ -71,9 +71,12 @@ export default function OutcomeClient({ pattern, outcome, results }: Props) {
 
     return (
       <div className="card">
-        <p className="done-confirm">✓ Your responses have been recorded.</p>
+        <p className="done-confirm">
+          <span className="accent-mark">✓</span> Your responses have been recorded.
+        </p>
         <p className="done-tally">
-          You preferred the tuned response {tunedCount} of {total} times.
+          You preferred the tuned response{" "}
+          <span className="accent-mark">{tunedCount}</span> of {total} times.
         </p>
         <h1>{copy.heading}</h1>
         <p className="muted">{copy.body}</p>
