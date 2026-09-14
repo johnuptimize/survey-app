@@ -63,7 +63,7 @@ function readJson(path, label) {
   if (!intro || typeof intro !== "object") {
     errors.push('missing "intro" object');
   } else {
-    for (const f of ["title", "description"]) {
+    for (const f of ["title", "description", "outcomeIntro"]) {
       if (typeof intro[f] !== "string" || intro[f].trim() === "") {
         errors.push(`intro.${f} missing/empty`);
       }

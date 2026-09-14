@@ -34,7 +34,7 @@ Once the Sheet is set up (see below), all content lives in four tabs:
 
 | Tab | Rows | Columns |
 | --- | --- | --- |
-| **Intro** | 1 data row | `title`, `description` |
+| **Intro** | 1 data row | `title`, `description`, `outcomeIntro` (the instructions paragraph shown above the 3 follow-up prompts) |
 | **Questions** | 5 rows | `id`, `text`, `optionA`, `optionB` |
 | **Outcomes** | 32 rows (one per pattern, pre-filled) | `pattern`, `title`, `prompt1_text`, `prompt1_optionA`, `prompt1_optionB`, `prompt2_*`, `prompt3_*`, then `prompt1_tuned`, `prompt2_tuned`, `prompt3_tuned` (each `A` or `B` — which option is the tuned response) |
 | **Results** | 2 rows (`tuned`, `regular`) | `key`, `heading`, `body`, `ctaLabel`, `ctaUrl` |
@@ -63,7 +63,7 @@ The build only ever reads four tabs by name (`Intro`, `Questions`, `Outcomes`,
 - **New tabs with any other name** (`Scratch`, `Analysis`, `Notes`, a VLOOKUP
   staging tab, charts, pivot tables). Anything that isn't one of the four is
   ignored — the `Sheet1` responses tab already works this way.
-- **Extra columns to the right of the data:** `Intro` from column **C** on,
+- **Extra columns to the right of the data:** `Intro` from column **D** on,
   `Questions` from column **E** on, `Outcomes` from column **O** on, `Results`
   from column **F** on. Good for editor notes, word counts, helper formulas —
   all ignored by the build.
@@ -187,7 +187,7 @@ Each response is one row in `Sheet1`: `submittedAt, receivedAt, pattern, q1..q5,
 followup1..followup3, pickedType1..3` (`tuned`/`regular`), `tunedCount` (0–3),
 `resultVariant`.
 
-### Upgrading a sheet that predates the tuned columns / Results tab
+### Upgrading a sheet that predates the tuned columns / Results tab / outcomeIntro
 
 1. Paste the new `Code.gs`, save, redeploy (new version).
 2. Run **`firstTimeSetup`** → adds the `Results` tab (leaves your other tabs alone).
@@ -196,7 +196,11 @@ followup1..followup3, pickedType1..3` (`tuned`/`regular`), `tunedCount` (0–3),
 4. Add the `prompt1_tuned` / `prompt2_tuned` / `prompt3_tuned` columns to the
    `Outcomes` tab — paste [`google-apps-script/outcomes-tuned-columns.tsv`](google-apps-script/outcomes-tuned-columns.tsv)
    into cell **L1** (header + 32 rows, already in pattern order).
-5. Fill in the `Results` tab copy, then **Publish**.
+5. Add an `outcomeIntro` column to the `Intro` tab: cell **C1** = `outcomeIntro`,
+   cell **C2** = the instructions paragraph shown above the 3 follow-up prompts
+   (`firstTimeSetup` only seeds this on a brand-new tab, so an existing one needs
+   it added by hand).
+6. Fill in the `Results` tab copy, then **Publish**.
 
 ## Deploy to Vercel
 

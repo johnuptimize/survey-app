@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import questionsData from "@/data/questions.json";
 import { allPatterns } from "@/lib/patterns";
 import { getOutcome } from "@/lib/outcomes";
 import { results } from "@/lib/results";
@@ -22,6 +23,11 @@ export default async function OutcomePage({
   if (!outcome) notFound();
 
   return (
-    <OutcomeClient pattern={pattern} outcome={outcome} results={results} />
+    <OutcomeClient
+      pattern={pattern}
+      outcome={outcome}
+      results={results}
+      outcomeIntro={questionsData.intro.outcomeIntro}
+    />
   );
 }

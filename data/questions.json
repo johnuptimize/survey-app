@@ -1,7 +1,8 @@
 {
   "intro": {
     "title": "Quick 5-question survey",
-    "description": "Answer 5 short A/B questions. Your answers lead to a tailored set of follow-up prompts at the end."
+    "description": "Answer 5 short A/B questions. Your answers lead to a tailored set of follow-up prompts at the end.",
+    "outcomeIntro": "Below are 3 real prompts, each answered two different ways. For each one, read both responses and pick the one that feels more like how you'd actually want AI to talk to you - not which one is \"better written,\" but which one fits you. There's no right answer. Go with your gut."
   },
   "questions": [
     {

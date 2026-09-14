@@ -11,7 +11,7 @@
  * TABS in this spreadsheet:
  *   Sheet1     (SHEET_NAME)     — one row per submission (script writes here;
  *                                rename via SHEET_NAME if your tab differs)
- *   Intro      (INTRO_TAB)      — row 2: [title, description]
+ *   Intro      (INTRO_TAB)      — row 2: [title, description, outcomeIntro]
  *   Questions  (QUESTIONS_TAB)  — 5 rows: [id, text, optionA, optionB]
  *   Outcomes   (OUTCOMES_TAB)   — 32 rows: [pattern, title,
  *                                  p1_text, p1_A, p1_B, p2_text, p2_A, p2_B,
@@ -32,11 +32,13 @@
  *   6. Reload the spreadsheet -> a "Survey" menu appears.
  *
  * UPGRADING an existing sheet (adds the tuned columns / Results tab / new
- * response columns):
+ * response columns / outcomeIntro):
  *   - Run `firstTimeSetup`  -> creates the Results tab (leaves existing tabs).
  *   - Run `setResponseHeaders` -> rewrites row 1 of Sheet1 with the new columns.
  *   - Add the prompt1_tuned / prompt2_tuned / prompt3_tuned columns to the
  *     Outcomes tab yourself (see google-apps-script/outcomes-tuned-columns.tsv).
+ *   - Add an `outcomeIntro` column (C1 header, C2 value) to the Intro tab
+ *     yourself — the intro paragraph shown above the 3 follow-up prompts.
  *
  * AFTER EDITING THIS FILE: Deploy -> Manage deployments -> edit -> Version: New
  * version -> Deploy.
@@ -146,10 +148,11 @@ function readContent_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
 
   var introSheet = mustGetSheet_(ss, INTRO_TAB);
-  var introRow = introSheet.getRange(2, 1, 1, 2).getValues()[0];
+  var introRow = introSheet.getRange(2, 1, 1, 3).getValues()[0];
   var intro = {
     title: String(introRow[0] || "").trim(),
     description: String(introRow[1] || "").trim(),
+    outcomeIntro: String(introRow[2] || "").trim(),
   };
 
   var qSheet = mustGetSheet_(ss, QUESTIONS_TAB);
@@ -276,11 +279,12 @@ function firstTimeSetup() {
   // Intro
   var intro = ss.getSheetByName(INTRO_TAB) || ss.insertSheet(INTRO_TAB);
   if (intro.getLastRow() === 0) {
-    intro.getRange(1, 1, 2, 2).setValues([
-      ["title", "description"],
+    intro.getRange(1, 1, 2, 3).setValues([
+      ["title", "description", "outcomeIntro"],
       [
         "Quick 5-question survey",
         "Answer 5 short A/B questions. Your answers lead to a tailored set of follow-up prompts at the end.",
+        "Below are 3 real prompts, each answered two different ways. For each one, read both responses and pick the one that feels more like how you'd actually want AI to talk to you - not which one is \"better written,\" but which one fits you. There's no right answer. Go with your gut.",
       ],
     ]);
     intro.setFrozenRows(1);
