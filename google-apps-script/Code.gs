@@ -111,8 +111,11 @@ function doPost(e) {
       return row[key] != null ? row[key] : "";
     });
 
+    // Short wait on purpose: the app's /api/log retries a failed submission
+    // several times with backoff, so a fast failure-and-retry here handles a
+    // burst of concurrent submissions better than one long wait per request.
     var lock = LockService.getScriptLock();
-    lock.waitLock(30000);
+    lock.waitLock(5000);
     try {
       responsesSheet_().appendRow(values);
     } finally {

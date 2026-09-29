@@ -6,6 +6,9 @@ import type { LogPayload } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+// Headroom for the retry loop below: worst case is 4 attempts x 6s timeout
+// plus ~2.5s of backoff (~26.5s), comfortably under this.
+export const maxDuration = 30;
 
 const CHOICE = new Set(["A", "B"]);
 
@@ -97,41 +100,89 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, sink: "server-log" });
   }
 
-  try {
-    const res = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: process.env.GOOGLE_SHEET_WEBHOOK_SECRET ?? "",
-        row,
-      }),
-      // Apps Script web apps 302-redirect to googleusercontent.com; fetch follows it.
-      redirect: "follow",
-    });
-
-    const text = await res.text();
-    let parsed: { ok?: boolean; error?: string } = {};
-    try {
-      parsed = JSON.parse(text);
-    } catch {
-      /* Apps Script returned HTML (often an auth/deploy problem). */
-    }
-
-    if (!res.ok || parsed.error || parsed.ok !== true) {
-      console.error(
-        "[api/log] sheet webhook problem:",
-        res.status,
-        text.slice(0, 500)
-      );
-      return NextResponse.json(
-        { error: "Logging service rejected the request." },
-        { status: 502 }
-      );
-    }
-
-    return NextResponse.json({ ok: true, sink: "google-sheet" });
-  } catch (err) {
-    console.error("[api/log] failed to reach sheet webhook:", err);
-    return NextResponse.json({ error: "Could not reach the logging service." }, { status: 502 });
+  const sheetResult = await postToSheetWithRetry(webhookUrl, row);
+  if (!sheetResult.ok) {
+    return NextResponse.json({ error: sheetResult.message }, { status: 502 });
   }
+  return NextResponse.json({ ok: true, sink: "google-sheet" });
+}
+
+/**
+ * Posts one response row to the Apps Script webhook, retrying on transient
+ * failures (network errors, non-2xx, or an error body — e.g. the sheet's
+ * LockService timing out under a burst of concurrent submissions). This
+ * absorbs brief spikes — many people submitting within the same few seconds,
+ * as tends to happen right after a study goes live — without the respondent
+ * ever seeing a failure. Not retried: an "unauthorized" response, since that
+ * means the shared secret is misconfigured and will never succeed on retry.
+ */
+async function postToSheetWithRetry(
+  webhookUrl: string,
+  row: Record<string, unknown>
+): Promise<{ ok: true } | { ok: false; message: string }> {
+  const MAX_ATTEMPTS = 4;
+  const BACKOFF_MS = [300, 700, 1500]; // gaps before attempts 2, 3, 4
+  const ATTEMPT_TIMEOUT_MS = 6000; // per-attempt cap; keeps the worst case well under maxDuration
+
+  let lastMessage = "Could not reach the logging service.";
+
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), ATTEMPT_TIMEOUT_MS);
+
+    try {
+      const res = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: process.env.GOOGLE_SHEET_WEBHOOK_SECRET ?? "",
+          row,
+        }),
+        // Apps Script web apps 302-redirect to googleusercontent.com; fetch follows it.
+        redirect: "follow",
+        signal: controller.signal,
+      });
+
+      const text = await res.text();
+      let parsed: { ok?: boolean; error?: string } = {};
+      try {
+        parsed = JSON.parse(text);
+      } catch {
+        /* Apps Script returned HTML (often an auth/deploy problem). */
+      }
+
+      if (res.ok && parsed.ok === true) {
+        return { ok: true };
+      }
+
+      if (parsed.error === "unauthorized") {
+        console.error("[api/log] sheet webhook rejected: unauthorized (SECRET mismatch)");
+        return { ok: false, message: "Logging service rejected the request." };
+      }
+
+      console.warn(
+        `[api/log] sheet webhook attempt ${attempt}/${MAX_ATTEMPTS} failed:`,
+        res.status,
+        text.slice(0, 300)
+      );
+      lastMessage = "Logging service rejected the request.";
+    } catch (err) {
+      const timedOut = err instanceof Error && err.name === "AbortError";
+      console.warn(
+        `[api/log] sheet webhook attempt ${attempt}/${MAX_ATTEMPTS} ` +
+          `${timedOut ? "timed out" : "threw"}:`,
+        timedOut ? `${ATTEMPT_TIMEOUT_MS}ms` : err
+      );
+      lastMessage = "Could not reach the logging service.";
+    } finally {
+      clearTimeout(timeout);
+    }
+
+    if (attempt < MAX_ATTEMPTS) {
+      await new Promise((r) => setTimeout(r, BACKOFF_MS[attempt - 1]));
+    }
+  }
+
+  console.error(`[api/log] sheet webhook failed after ${MAX_ATTEMPTS} attempts.`);
+  return { ok: false, message: lastMessage };
 }
