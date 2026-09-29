@@ -10,4 +10,8 @@ export interface LogPayload {
   followups: Choice[];
   /** ISO timestamp set on the client when the survey is submitted. */
   submittedAt: string;
+  /** From Prolific's PROLIFIC_PID/STUDY_ID/SESSION_ID URL params, if present. */
+  prolificPid?: string;
+  studyId?: string;
+  sessionId?: string;
 }

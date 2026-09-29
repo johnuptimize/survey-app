@@ -36,6 +36,9 @@ function validate(body: unknown): { ok: true; data: LogPayload } | { ok: false; 
 
   const submittedAt = typeof b.submittedAt === "string" && b.submittedAt ? b.submittedAt : new Date().toISOString();
 
+  // Optional — only present for respondents who arrived via a Prolific link.
+  const optStr = (v: unknown) => (typeof v === "string" ? v.trim().slice(0, 100) : "");
+
   return {
     ok: true,
     data: {
@@ -43,6 +46,9 @@ function validate(body: unknown): { ok: true; data: LogPayload } | { ok: false; 
       pattern,
       followups: followups as LogPayload["followups"],
       submittedAt,
+      prolificPid: optStr(b.prolificPid),
+      studyId: optStr(b.studyId),
+      sessionId: optStr(b.sessionId),
     },
   };
 }
@@ -86,6 +92,9 @@ export async function POST(request: Request) {
     pickedType3: tally.pickedTypes[2],
     tunedCount: tally.tunedCount,
     resultVariant: tally.variant,
+    prolificPid: data.prolificPid ?? "",
+    studyId: data.studyId ?? "",
+    sessionId: data.sessionId ?? "",
   };
 
   const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;

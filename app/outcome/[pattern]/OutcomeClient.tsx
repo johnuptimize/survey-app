@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Outcome } from "@/lib/outcomes";
 import type { ResultsCopy } from "@/lib/results";
 import type { Choice, Pattern } from "@/lib/patterns";
+import {
+  EMPTY_PROLIFIC_PARAMS,
+  prolificQueryString,
+  readProlificParams,
+  type ProlificParams,
+} from "@/lib/prolific";
 import { tallyTuned } from "@/lib/tally";
 import type { LogPayload } from "@/lib/types";
 
@@ -17,6 +23,12 @@ interface Props {
 
 type SubmitState = "idle" | "submitting" | "done" | "error";
 
+// This study's Prolific completion code (Study setup -> Completion codes on
+// Prolific). Only shown to respondents who arrived with a PROLIFIC_PID.
+const PROLIFIC_COMPLETION_CODE = "C1GCU4PA";
+const PROLIFIC_COMPLETION_URL =
+  "https://app.prolific.com/submissions/complete?cc=" + PROLIFIC_COMPLETION_CODE;
+
 export default function OutcomeClient({
   pattern,
   outcome,
@@ -26,6 +38,12 @@ export default function OutcomeClient({
   const [followups, setFollowups] = useState<(Choice | null)[]>([null, null, null]);
   const [state, setState] = useState<SubmitState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [prolific, setProlific] = useState<ProlificParams>(EMPTY_PROLIFIC_PARAMS);
+
+  // Prolific params arrive on this page's URL, carried over by SurveyClient.
+  useEffect(() => {
+    setProlific(readProlificParams(window.location.search));
+  }, []);
 
   const allAnswered = followups.every((f) => f !== null);
 
@@ -48,6 +66,9 @@ export default function OutcomeClient({
       pattern,
       followups: followups as Choice[],
       submittedAt: new Date().toISOString(),
+      prolificPid: prolific.prolificPid,
+      studyId: prolific.studyId,
+      sessionId: prolific.sessionId,
     };
 
     try {
@@ -98,8 +119,25 @@ export default function OutcomeClient({
             </a>
           </p>
         )}
+        {prolific.prolificPid && (
+          <div className="done-prolific">
+            <p className="muted">
+              Thanks for taking part! Click below to return to Prolific and
+              complete the study.
+            </p>
+            <p>
+              <a className="primary" href={PROLIFIC_COMPLETION_URL}>
+                Return to Prolific →
+              </a>
+            </p>
+            <p className="muted">
+              If you&apos;re not redirected, enter this completion code on
+              Prolific: <span className="pattern-chip">{PROLIFIC_COMPLETION_CODE}</span>
+            </p>
+          </div>
+        )}
         <p>
-          <Link className="link" href="/">
+          <Link className="link" href={`/${prolificQueryString(prolific)}`}>
             Start over
           </Link>
         </p>
@@ -139,7 +177,7 @@ export default function OutcomeClient({
       ))}
 
       <div className="actions">
-        <Link className="link" href="/">
+        <Link className="link" href={`/${prolificQueryString(prolific)}`}>
           ← Restart survey
         </Link>
         <button

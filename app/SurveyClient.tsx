@@ -1,8 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { patternFromAnswers, type Choice } from "@/lib/patterns";
+import {
+  EMPTY_PROLIFIC_PARAMS,
+  prolificQueryString,
+  readProlificParams,
+  type ProlificParams,
+} from "@/lib/prolific";
 
 interface Question {
   id: string;
@@ -21,6 +27,12 @@ export default function SurveyClient({ intro, questions }: Props) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Choice[]>([]);
   const [navigating, setNavigating] = useState(false);
+  const [prolific, setProlific] = useState<ProlificParams>(EMPTY_PROLIFIC_PARAMS);
+
+  // Capture PROLIFIC_PID/STUDY_ID/SESSION_ID once, from the landing URL.
+  useEffect(() => {
+    setProlific(readProlificParams(window.location.search));
+  }, []);
 
   const total = questions.length;
   const current = questions[step];
@@ -34,10 +46,11 @@ export default function SurveyClient({ intro, questions }: Props) {
       return;
     }
 
-    // Last question answered — build the pattern and route to the outcome.
+    // Last question answered — build the pattern and route to the outcome,
+    // carrying any Prolific params along so the outcome page can log them.
     const pattern = patternFromAnswers(next);
     setNavigating(true);
-    router.push(`/outcome/${pattern}`);
+    router.push(`/outcome/${pattern}${prolificQueryString(prolific)}`);
   }
 
   function back() {

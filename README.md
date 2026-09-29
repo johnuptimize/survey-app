@@ -185,14 +185,16 @@ That one URL is used for everything. After any later edit to `Code.gs`:
 
 Each response is one row in `Sheet1`: `submittedAt, receivedAt, pattern, q1..q5,
 followup1..followup3, pickedType1..3` (`tuned`/`regular`), `tunedCount` (0–3),
-`resultVariant`.
+`resultVariant`, `prolificPid, studyId, sessionId` (blank unless the respondent
+arrived via a Prolific link — see below).
 
-### Upgrading a sheet that predates the tuned columns / Results tab / outcomeIntro
+### Upgrading a sheet that predates the tuned columns / Results tab / outcomeIntro / Prolific columns
 
 1. Paste the new `Code.gs`, save, redeploy (new version).
 2. Run **`firstTimeSetup`** → adds the `Results` tab (leaves your other tabs alone).
 3. Run **`setResponseHeaders`** (Survey menu, or the function dropdown) → rewrites
-   row 1 of `Sheet1` with the new columns. Existing rows keep their values.
+   row 1 of `Sheet1` with the new columns (including the Prolific ones).
+   Existing rows keep their values.
 4. Add the `prompt1_tuned` / `prompt2_tuned` / `prompt3_tuned` columns to the
    `Outcomes` tab — paste [`google-apps-script/outcomes-tuned-columns.tsv`](google-apps-script/outcomes-tuned-columns.tsv)
    into cell **L1** (header + 32 rows, already in pattern order).
@@ -201,6 +203,27 @@ followup1..followup3, pickedType1..3` (`tuned`/`regular`), `tunedCount` (0–3),
    (`firstTimeSetup` only seeds this on a brand-new tab, so an existing one needs
    it added by hand).
 6. Fill in the `Results` tab copy, then **Publish**.
+
+## Running as a Prolific study
+
+Point the Prolific study URL at the survey with Prolific's placeholder tokens:
+
+```
+https://<your-site>/?PROLIFIC_PID={{%PROLIFIC_PID%}}&STUDY_ID={{%STUDY_ID%}}&SESSION_ID={{%SESSION_ID%}}
+```
+
+The app reads those three params on landing, carries them through the survey,
+and logs them with the response (`prolificPid`, `studyId`, `sessionId` columns
+in `Sheet1`) — blank for anyone who opens the site without them, so normal
+testing/sharing the link isn't affected.
+
+On the results screen, respondents who arrived with a `PROLIFIC_PID` also get
+a **"Return to Prolific"** button plus the completion code shown as text (as a
+fallback for manual entry) — nobody else sees this section. The completion
+code and URL are constants near the top of
+[`app/outcome/[pattern]/OutcomeClient.tsx`](app/outcome/[pattern]/OutcomeClient.tsx)
+(`PROLIFIC_COMPLETION_CODE` / `PROLIFIC_COMPLETION_URL`) — update those (code
+change + deploy) if you reuse this app for a different Prolific study.
 
 ## Deploy to Vercel
 
@@ -241,6 +264,7 @@ lib/
   outcomes.ts                  loads + validates outcomes.json at startup
   results.ts                   loads + validates results.json at startup
   tally.ts                     tuned-vs-regular tally (shared: results page + logging)
+  prolific.ts                  reads/carries PROLIFIC_PID/STUDY_ID/SESSION_ID (client)
   types.ts                     shared LogPayload type
 scripts/
   pull-content.mjs             build step: Sheet -> data/*.json (npm run pull:content)

@@ -32,7 +32,7 @@
  *   6. Reload the spreadsheet -> a "Survey" menu appears.
  *
  * UPGRADING an existing sheet (adds the tuned columns / Results tab / new
- * response columns / outcomeIntro):
+ * response columns incl. prolificPid/studyId/sessionId / outcomeIntro):
  *   - Run `firstTimeSetup`  -> creates the Results tab (leaves existing tabs).
  *   - Run `setResponseHeaders` -> rewrites row 1 of Sheet1 with the new columns.
  *   - Add the prompt1_tuned / prompt2_tuned / prompt3_tuned columns to the
@@ -73,6 +73,9 @@ var RESPONSE_COLUMNS = [
   "pickedType3",
   "tunedCount",
   "resultVariant",
+  "prolificPid",
+  "studyId",
+  "sessionId",
 ];
 
 var OUTCOME_COLUMNS = [

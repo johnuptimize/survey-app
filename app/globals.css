@@ -261,6 +261,16 @@ button.link:disabled {
   margin: 4px 0 24px;
 }
 
+.done-prolific {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  margin: 4px 0 20px;
+}
+
+.done-prolific .primary {
+  margin: 4px 0;
+}
+
 /* Gold, used sparingly for numbers/ticks/markers, per the brand guide. */
 .accent-mark {
   color: var(--accent);
