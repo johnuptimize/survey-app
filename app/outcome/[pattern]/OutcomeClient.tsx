@@ -25,7 +25,7 @@ type SubmitState = "idle" | "submitting" | "done" | "error";
 
 // This study's Prolific completion code (Study setup -> Completion codes on
 // Prolific). Only shown to respondents who arrived with a PROLIFIC_PID.
-const PROLIFIC_COMPLETION_CODE = "C1GCU4PA";
+const PROLIFIC_COMPLETION_CODE = "CATAT8VK";
 const PROLIFIC_COMPLETION_URL =
   "https://app.prolific.com/submissions/complete?cc=" + PROLIFIC_COMPLETION_CODE;
 
