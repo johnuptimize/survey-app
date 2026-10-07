@@ -1,8 +1,8 @@
 /**
  * Google Apps Script for the branching survey app. One deployment does two jobs:
  *
- *   1. doPost  — receives a finished survey response and appends it as a row
- *                to the responses tab.
+ *   1. doPost  — receives a finished survey response (appended as a row to
+ *                the responses tab) or a CTA click (appended to Clicks).
  *   2. doGet ?content=all — returns the editable survey content (intro, the 5
  *                questions, all 32 outcomes, and the results-screen copy) as
  *                JSON, so the app can pull it at build time
@@ -19,6 +19,8 @@
  *                                  p1_tuned, p2_tuned, p3_tuned]  (tuned = "A"/"B")
  *   Results    (RESULTS_TAB)    — 2 rows: [key, heading, body, ctaLabel, ctaUrl]
  *                                  key is "tuned" or "regular"
+ *   Clicks     (CLICKS_TAB)     — one row per click on the results-page CTA
+ *                                  (script writes here; created on first click)
  *
  * FIRST-TIME SETUP
  *   1. Extensions -> Apps Script. Paste this file.
@@ -49,6 +51,7 @@ var INTRO_TAB = "Intro";
 var QUESTIONS_TAB = "Questions";
 var OUTCOMES_TAB = "Outcomes";
 var RESULTS_TAB = "Results";
+var CLICKS_TAB = "Clicks"; // one row per click on the results-page CTA
 
 var SECRET = ""; // must match GOOGLE_SHEET_WEBHOOK_SECRET if that env var is set
 var DEPLOY_HOOK_URL = ""; // Vercel: Settings -> Git -> Deploy Hooks (branch: main)
@@ -97,6 +100,18 @@ var OUTCOME_COLUMNS = [
 
 var RESULTS_COLUMNS = ["key", "heading", "body", "ctaLabel", "ctaUrl"];
 
+// Clicks tab column order. Must match the `row` in app/api/cta/route.ts.
+var CLICK_COLUMNS = [
+  "clickedAt",
+  "receivedAt",
+  "prolificPid",
+  "studyId",
+  "sessionId",
+  "pattern",
+  "resultVariant",
+  "tunedCount",
+];
+
 /* ------------------------------------------------------------------ */
 /* Web app entry points                                               */
 /* ------------------------------------------------------------------ */
@@ -110,7 +125,12 @@ function doPost(e) {
     }
 
     var row = body.row || {};
-    var values = RESPONSE_COLUMNS.map(function (key) {
+
+    // Requests without a `kind` are survey responses (older app versions never
+    // send one); `kind: "click"` is a click on the results-page CTA.
+    var isClick = body.kind === "click";
+    var columns = isClick ? CLICK_COLUMNS : RESPONSE_COLUMNS;
+    var values = columns.map(function (key) {
       return row[key] != null ? row[key] : "";
     });
 
@@ -120,7 +140,8 @@ function doPost(e) {
     var lock = LockService.getScriptLock();
     lock.waitLock(5000);
     try {
-      responsesSheet_().appendRow(values);
+      var target = isClick ? clicksSheet_() : responsesSheet_();
+      target.appendRow(values);
     } finally {
       lock.releaseLock();
     }
@@ -348,6 +369,8 @@ function firstTimeSetup() {
     r.setFrozenRows(1);
   }
 
+  clicksSheet_(); // Clicks tab + header (also created on demand by doPost)
+
   SpreadsheetApp.getActiveSpreadsheet().toast("Tabs ready.", "Survey setup", 5);
 }
 
@@ -374,6 +397,18 @@ function setResponseHeaders() {
 function responsesSheet_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   return ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
+}
+
+// The Clicks tab is created (with its header row) the first time it's needed,
+// so there's no extra setup step when upgrading an existing sheet.
+function clicksSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(CLICKS_TAB) || ss.insertSheet(CLICKS_TAB);
+  if (sh.getLastRow() === 0) {
+    sh.getRange(1, 1, 1, CLICK_COLUMNS.length).setValues([CLICK_COLUMNS]);
+    sh.setFrozenRows(1);
+  }
+  return sh;
 }
 
 function mustGetSheet_(ss, name) {

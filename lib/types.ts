@@ -15,3 +15,15 @@ export interface LogPayload {
   studyId?: string;
   sessionId?: string;
 }
+
+/** Payload posted to /api/cta when someone clicks the results-page CTA button. */
+export interface CtaClickPayload {
+  pattern: Pattern;
+  /** The 3 follow-up answers — the server re-derives the tuned/regular result from them. */
+  followups: Choice[];
+  /** ISO timestamp set on the client at click time. */
+  clickedAt: string;
+  prolificPid?: string;
+  studyId?: string;
+  sessionId?: string;
+}

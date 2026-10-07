@@ -225,6 +225,20 @@ code and URL are constants near the top of
 (`PROLIFIC_COMPLETION_CODE` / `PROLIFIC_COMPLETION_URL`) — update those (code
 change + deploy) if you reuse this app for a different Prolific study.
 
+### Tracking clicks on the results-page CTA ("Join Frequency")
+
+Every click on the CTA button (including middle-click / open-in-new-tab) is
+logged as a row in the **`Clicks`** tab of the Sheet: `clickedAt, receivedAt,
+prolificPid, studyId, sessionId, pattern, resultVariant, tunedCount`. The
+browser fires the log request in the background and the button links straight
+to its destination, so tracking can never get in a respondent's way. Clicking
+twice logs two rows — count unique people with a formula on `prolificPid`.
+
+This records clicks only, not signups. The tab is created automatically on the
+first click (and by `firstTimeSetup` on a fresh sheet), so upgrading needs no
+extra setup — but **update and redeploy the Apps Script before deploying the
+app**, otherwise an older script would append click rows to `Sheet1`.
+
 ## Deploy to Vercel
 
 1. Push this repo to GitHub.
@@ -254,6 +268,7 @@ app/
   outcome/[pattern]/page.tsx   outcome route (server) — validates pattern, 404s
   outcome/[pattern]/OutcomeClient.tsx   3 follow-up prompts + submit (client)
   api/log/route.ts             validates payload, forwards to the sheet
+  api/cta/route.ts             logs a CTA click to the sheet's Clicks tab
   not-found.tsx
 data/
   questions.json               fallback copy of intro + questions
@@ -265,6 +280,7 @@ lib/
   results.ts                   loads + validates results.json at startup
   tally.ts                     tuned-vs-regular tally (shared: results page + logging)
   prolific.ts                  reads/carries PROLIFIC_PID/STUDY_ID/SESSION_ID (client)
+  sheet.ts                     retrying POST to the Apps Script webhook (shared by /api/log + /api/cta)
   types.ts                     shared LogPayload type
 scripts/
   pull-content.mjs             build step: Sheet -> data/*.json (npm run pull:content)

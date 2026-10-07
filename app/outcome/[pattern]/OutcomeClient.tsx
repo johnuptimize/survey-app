@@ -12,7 +12,7 @@ import {
   type ProlificParams,
 } from "@/lib/prolific";
 import { tallyTuned } from "@/lib/tally";
-import type { LogPayload } from "@/lib/types";
+import type { CtaClickPayload, LogPayload } from "@/lib/types";
 
 interface Props {
   pattern: Pattern;
@@ -90,6 +90,25 @@ export default function OutcomeClient({
     }
   }
 
+  // Log a click on the results-page CTA. Fire-and-forget: the link goes straight
+  // to its destination, so a tracking failure can never block the click.
+  function trackCtaClick() {
+    const payload: CtaClickPayload = {
+      pattern,
+      followups: followups as Choice[],
+      clickedAt: new Date().toISOString(),
+      prolificPid: prolific.prolificPid,
+      studyId: prolific.studyId,
+      sessionId: prolific.sessionId,
+    };
+    fetch("/api/cta", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(() => {});
+  }
+
   if (state === "done") {
     const { tunedCount, variant } = tallyTuned(outcome, followups as Choice[]);
     const copy = results[variant];
@@ -114,6 +133,10 @@ export default function OutcomeClient({
               href={copy.ctaUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={trackCtaClick}
+              onAuxClick={(e) => {
+                if (e.button === 1) trackCtaClick(); // middle-click = open in new tab
+              }}
             >
               {copy.ctaLabel} →
             </a>
